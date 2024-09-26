@@ -2,13 +2,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Article;
 use Faker\Factory;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UsersFixtures extends Fixture
+class AppFixtures extends Fixture
 {
     public function __construct(private UserPasswordHasherInterface $hasher) {}
 
@@ -35,7 +36,23 @@ class UsersFixtures extends Fixture
                 ->setRoles(['ROLE_USER']);
             $manager->persist($user);
             $this->addReference('user_' . $i, $user);
+        }
 
+        $users = [];
+        for ($i = 0; $i < 10; $i++) {
+            $users[] = $this->getReference('user_' . $i);
+        }
+        $users[] = $this->getReference('user_admin');
+
+        foreach ($users as $user) {
+            for ($i = 0; $i < 5; $i++) {
+                $article = new Article();
+                $article
+                    ->setTitle($faker->words(5, true))
+                    ->setContent($faker->randomHtml)
+                    ->setAuthor($user);
+                $manager->persist($article);
+            }
         }
 
         $manager->flush();
