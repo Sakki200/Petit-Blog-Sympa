@@ -6,12 +6,11 @@ use App\Entity\Article;
 use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class NoteFixtures extends Fixture implements DependentFixtureInterface
+class ArticlesFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function __construct(private SluggerInterface $slugger) {}
+    public function __construct() {}
 
     public function load(ObjectManager $manager): void
     {
@@ -33,8 +32,8 @@ class NoteFixtures extends Fixture implements DependentFixtureInterface
                     ->setAuthor($user);
                 $manager->persist($article);
 
-                // Add a reference to this note
-                $this->addReference('note_' . $articleCount, $article);
+                // Add a reference to this article
+                $this->addReference('article_' . $articleCount, $article);
                 $articleCount++;
             }
         }
@@ -44,6 +43,6 @@ class NoteFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [UserFixtures::class];
+        return [UsersFixtures::class];
     }
 }
