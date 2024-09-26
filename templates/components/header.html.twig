@@ -1,0 +1,9 @@
+<div>
+	<h3>PBS</h3>
+	<p>Petit Blog Sympa</p>
+</div>
+{% if app.user is defined  %}
+	{% include('components/_partials/login_state.html.twig') %}
+{% else %}
+	{% include('components/_partials/logout_state.html.twig') %}
+{% endif %}

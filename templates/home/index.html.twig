@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+	{% for item in articles %}
+		<article>
+			<h2>{{item.title}}</h2>
+			<p>{{item.author.username}}</p>
+			<a href="/articles/{{item.id}}">
+				<button>Check it</button>
+			</a>
+		</article>
+	{% endfor %}
+{% endblock %}
