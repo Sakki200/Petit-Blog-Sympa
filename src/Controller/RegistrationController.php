@@ -49,10 +49,11 @@ class RegistrationController extends AbstractController
     {
         return $this->render('premium/subscription.html.twig', ['premium' => 'premium']);
     }
-    #[Route('/s/success', name: 'app_subscription_success', methods: ['GET'])]
-    public function subscribed(UserRepository $user): Response
+    #[Route('/s/success', name: 'app_subscription_success', methods: ['POST'])]
+    public function subscribed(): Response
     {
-        $user->setRoles(['ROLE_PREMIUM']);
+        $user = $this->getUser();
+        $user->setRoles(["ROLE_PREMIUM"]);
 
         return $this->redirectToRoute('app_home');
     }

@@ -50,7 +50,8 @@ class AppFixtures extends Fixture
                 $article
                     ->setTitle($faker->words(5, true))
                     ->setContent($faker->text(800))
-                    ->setAuthor($user);
+                    ->setAuthor($user)
+                    ->setPremium($faker->boolean(60));
                 $manager->persist($article);
             }
         }

@@ -17,7 +17,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'article' => $specifyArticle,
-            'authorArticles' => $user->getArticles()
+            'authorArticles' => $articles->findBy(['author' => $user], ['createdAt' => 'DESC'], 3)
         ]);
     }
     #[Route('/articles', name: 'app_article')]
