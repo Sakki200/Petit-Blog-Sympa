@@ -1,9 +1,14 @@
-<div>
-	<h3>PBS</h3>
-	<p>Petit Blog Sympa</p>
-</div>
-{% if app.user is defined  %}
-	{% include('components/_partials/login_state.html.twig') %}
-{% else %}
-	{% include('components/_partials/logout_state.html.twig') %}
-{% endif %}
+<header class="flex justify-between items-center bg-slate-900 p-2 text-white">
+	<a href="{{path('app_home')}}">
+		<h2 class="font-bold ml-8 text-white text-4xl">PBS</h2>
+	</a>
+	<div class="flex justify-between items-center gap-4">
+		<div class="flex justify-between items-center gap-4">
+			{% if app.user and 'ROLE_USER' in app.user.roles  %}
+				{% include('components/partials/login_state.html.twig') %}
+			{% else %}
+				{% include('components/partials/logout_state.html.twig') %}
+			{% endif %}
+		</div>
+	</div>
+</header>

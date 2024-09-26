@@ -45,11 +45,11 @@ class AppFixtures extends Fixture
         $users[] = $this->getReference('user_admin');
 
         foreach ($users as $user) {
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 50; $i++) {
                 $article = new Article();
                 $article
                     ->setTitle($faker->words(5, true))
-                    ->setContent($faker->randomHtml)
+                    ->setContent($faker->text(800))
                     ->setAuthor($user);
                 $manager->persist($article);
             }

@@ -12,17 +12,19 @@ class ArticleController extends AbstractController
     #[Route('/articles/{id}', name: 'article_show', methods: ["GET"])]
     public function show(ArticleRepository $articles, $id): Response
     {
+        $specifyArticle = $articles->findOneBy(['id' => $id],);
+        $user = $specifyArticle->getAuthor();
+
         return $this->render('article/show.html.twig', [
-            'articles' => $articles->findOneBy(
-                ['id' => $id],
-            )
+            'article' => $specifyArticle,
+            'authorArticles' => $user->getArticles()
         ]);
     }
     #[Route('/articles', name: 'app_article')]
     public function allArticles(ArticleRepository $articles): Response
     {
-        return $this->render('article/index.html.twig', [
-            'articles' => $articles->findBy(
+        return $this->render('article/all.html.twig', [
+            'allArticles' => $articles->findBy(
                 [],
                 ['createdAt' => 'DESC']
             )

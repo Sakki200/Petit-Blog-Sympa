@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home
+{% block title %}
+	{{"All articles"|trans}}
 {% endblock %}
 
 {% block body %}
+	<header class="bg-gradient-to-r from-blue-100 via-slate-100 to-indigo-100 py-5 md:py-16">
+		<div class="px-4 sm:max-w-screen-sm md:max-w-screen-lg mx-auto">
+			<h1 class="text-4xl md:text-5xl font-bold">{{"Discover all public articles"|trans}}</h1>
+			<p class="mb-4">{{"Find out what's new on Petit Blog Sympa"|trans}}</p>
+		</div>
+	</header>
 	<main class="max-w-screen-lg mx-auto py-5 md:py-16 px-4">
-	<h1 class="text-5xl text-center font-semibold mb-8">Welcome on Petit Blog Sympa</h1>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			{% for item in articles %}
+			{% for item in allArticles %}
 				<div class="shadow-lg rounded-md p-4 md:p-6 mb-4 flex flex-col border relative">
 					{% if item.isPremium %}
 						<div class="absolute bottom-0 left-0 bg-yellow-100 rounded-bl-md rounded-tr-md py-1 px-2 text-sm flex items-center gap-2">
